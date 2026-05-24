@@ -1,19 +1,14 @@
-// pages/sentiment/sentiment.js
-const { mockSentiment, mockETFs } = require('../../utils/mock.js');
+const api = require('../../utils/api.js');
 
 Page({
   data: {
     statusBarHeight: 44,
-    currentTab: 1,
-    sentimentData: {
-      fearGreedIndex: 0,
-      sentiment: '中性',
-      upLimit: 0,
-      downLimit: 0,
-      burstRate: 0,
-      yesterdayUpToday: 0,
-      updateTime: ''
-    },
+    sentimentIndex: 50,
+    sentiment: '中性',
+    upLimit: 0,
+    downLimit: 0,
+    burstRate: 0,
+    yesterdayUpToday: 0,
     etfCategory: 'broad',
     etfList: []
   },
@@ -23,41 +18,45 @@ Page({
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight || 44
     });
-    this.loadData();
+    this.loadSentimentData();
+    this.loadETFData();
   },
 
   onPullDownRefresh() {
-    setTimeout(() => {
-      this.loadData();
-      wx.showToast({ title: '刷新成功', icon: 'success' });
+    Promise.all([this.loadSentimentData(), this.loadETFData()]).then(() => {
       wx.stopPullDownRefresh();
-    }, 1000);
-  },
-
-  loadData() {
-    const sentimentData = mockSentiment || {
-      fearGreedIndex: 50,
-      sentiment: '中性',
-      upLimit: 0,
-      downLimit: 0,
-      burstRate: 0,
-      yesterdayUpToday: 0,
-      updateTime: ''
-    };
-    const etfList = mockETFs && mockETFs[this.data.etfCategory] ? mockETFs[this.data.etfCategory] : [];
-
-    this.setData({
-      sentimentData,
-      etfList
+      wx.showToast({ title: '刷新成功', icon: 'success' });
+    }).catch(() => {
+      wx.stopPullDownRefresh();
     });
   },
 
-  onSwitchETF(e) {
+  async loadSentimentData() {
+    try {
+      const indexRes = await api.getSentimentIndex();
+      const metricsRes = await api.getMarketMetrics();
+      this.setData({
+        sentimentIndex: indexRes.data.fearGreedIndex,
+        sentiment: indexRes.data.sentiment,
+        ...metricsRes.data
+      });
+    } catch (err) {
+      console.error('加载情绪数据失败:', err);
+    }
+  },
+
+  async loadETFData() {
+    try {
+      const res = await api.getETFFlow(this.data.etfCategory);
+      this.setData({ etfList: res.data });
+    } catch (err) {
+      console.error('加载ETF数据失败:', err);
+    }
+  },
+
+  onSwitchETFCategory(e) {
     const category = e.currentTarget.dataset.category;
-    const etfList = mockETFs && mockETFs[category] ? mockETFs[category] : [];
-    this.setData({
-      etfCategory: category,
-      etfList
-    });
+    this.setData({ etfCategory: category });
+    this.loadETFData();
   }
 });

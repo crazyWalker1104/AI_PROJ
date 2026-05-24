@@ -1,4 +1,4 @@
-// pages/fund/fund.js
+const api = require('../../utils/api.js');
 const { mockFunds } = require('../../utils/mock.js');
 
 Page({
@@ -22,70 +22,52 @@ Page({
   },
 
   onShow() {
-    // 模拟已添加的自选基金
     const watchList = mockFunds.slice(0, 3);
     this.setData({ watchList });
   },
 
   onPullDownRefresh() {
-    setTimeout(() => {
-      this.loadData();
-      const watchList = mockFunds.slice(0, 3);
-      this.setData({ watchList, isSearching: false, searchResults: [] });
-      wx.showToast({ title: '刷新成功', icon: 'success' });
+    wx.showLoading({ title: '刷新中...' });
+    this.loadData().then(() => {
+      wx.hideLoading();
       wx.stopPullDownRefresh();
-    }, 1000);
+      wx.showToast({ title: '刷新成功', icon: 'success' });
+    }).catch(() => {
+      wx.hideLoading();
+      wx.stopPullDownRefresh();
+    });
   },
 
-  loadData() {
-    const rankingList = this.data.rankingType === 'rise'
-      ? [...mockFunds].sort((a, b) => b.estimateChange - a.estimateChange)
-      : [...mockFunds].sort((a, b) => a.estimateChange - b.estimateChange);
-
-    this.setData({ rankingList });
+  async loadData() {
+    try {
+      const res = await api.getFundList();
+      const rankingList = this.data.rankingType === 'rise' ? 
+        [...res.data].sort((a, b) => b.estimateChange - a.estimateChange) :
+        [...res.data].sort((a, b) => a.estimateChange - b.estimateChange);
+      this.setData({ rankingList });
+    } catch (err) {
+      console.error('加载数据失败:', err);
+    }
   },
 
   onSearchInput(e) {
     const keyword = e.detail.value;
     this.setData({ searchKeyword: keyword });
-    
-    if (keyword) {
-      const results = mockFunds.filter(fund => 
-        fund.code.toLowerCase().includes(keyword.toLowerCase()) || 
-        fund.name.toLowerCase().includes(keyword.toLowerCase())
-      );
-      this.setData({ 
-        isSearching: true, 
-        searchResults: results 
-      });
-    } else {
-      this.setData({ 
-        isSearching: false, 
-        searchResults: [] 
-      });
-    }
   },
 
-  onSearchFund() {
+  async onSearchFund() {
     const keyword = this.data.searchKeyword;
     if (!keyword) {
-      wx.showToast({ title: '请输入基金代码或名称', icon: 'none' });
+      wx.showToast({ title: '请输入关键词', icon: 'none' });
       return;
     }
-    
-    const results = mockFunds.filter(fund => 
-      fund.code.toLowerCase().includes(keyword.toLowerCase()) || 
-      fund.name.toLowerCase().includes(keyword.toLowerCase())
-    );
-    
-    if (results.length > 0) {
-      this.setData({ 
-        isSearching: true, 
-        searchResults: results 
-      });
-      wx.showToast({ title: `找到${results.length}个结果`, icon: 'success' });
-    } else {
-      wx.showToast({ title: '未找到相关基金', icon: 'none' });
+    try {
+      wx.showLoading({ title: '搜索中...' });
+      const res = await api.searchFund(keyword);
+      this.setData({ isSearching: true, searchResults: res.data });
+      wx.hideLoading();
+    } catch (err) {
+      wx.hideLoading();
     }
   },
 
@@ -97,35 +79,21 @@ Page({
 
   onFundTap(e) {
     const fund = e.detail && e.detail.fund;
-    if (fund && fund.name) {
-      wx.showToast({ title: `查看 ${fund.name}`, icon: 'none' });
-    }
+    if (fund) wx.showToast({ title: `查看 ${fund.name}`, icon: 'none' });
   },
 
   onAddToWatchlist(e) {
     const fund = e.currentTarget.dataset.fund;
     if (!fund) return;
 
-    const watchList = this.data.watchList;
-    const exists = watchList.some(f => f.code === fund.code);
-
+    const exists = this.data.watchList.some(f => f.code === fund.code);
     if (exists) {
       wx.showToast({ title: '已在自选中', icon: 'none' });
       return;
     }
 
-    watchList.push(fund);
+    const watchList = [...this.data.watchList, fund];
     this.setData({ watchList });
-
-    // 更新搜索结果中该基金的状态
-    const searchResults = this.data.searchResults.map(item => {
-      if (item.code === fund.code) {
-        return { ...item, isAdded: true };
-      }
-      return item;
-    });
-    this.setData({ searchResults });
-
     wx.showToast({ title: '已添加到自选', icon: 'success' });
   },
 

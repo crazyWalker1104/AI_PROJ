@@ -1,11 +1,8 @@
-// pages/dragon/dragon.js
-const { mockDragonList, mockDealerRanking } = require('../../utils/mock.js');
+const api = require('../../utils/api.js');
 
 Page({
   data: {
     statusBarHeight: 44,
-    currentTab: 2,
-    selectedDate: '2024-01-15',
     dragonList: [],
     dealerRanking: []
   },
@@ -19,37 +16,24 @@ Page({
   },
 
   onPullDownRefresh() {
-    setTimeout(() => {
-      this.loadData();
-      wx.showToast({ title: '刷新成功', icon: 'success' });
+    this.loadData().then(() => {
       wx.stopPullDownRefresh();
-    }, 1000);
-  },
-
-  loadData() {
-    this.setData({
-      dragonList: mockDragonList || [],
-      dealerRanking: mockDealerRanking || []
+      wx.showToast({ title: '刷新成功', icon: 'success' });
+    }).catch(() => {
+      wx.stopPullDownRefresh();
     });
   },
 
-  onDateChange(e) {
-    this.setData({
-      selectedDate: e.detail.value
-    });
-    wx.showToast({ title: `已选择 ${e.detail.value}`, icon: 'none' });
-  },
-
-  onDragonExpand(e) {
-    const code = e.detail && e.detail.code;
-    if (!code) return;
-    
-    const dragonList = this.data.dragonList.map(item => {
-      if (item.code === code) {
-        return { ...item, expanded: !item.expanded };
-      }
-      return item;
-    });
-    this.setData({ dragonList });
+  async loadData() {
+    try {
+      const listRes = await api.getDragonList();
+      const dealerRes = await api.getDealerRanking();
+      this.setData({
+        dragonList: listRes.data,
+        dealerRanking: dealerRes.data
+      });
+    } catch (err) {
+      console.error('加载龙虎榜数据失败:', err);
+    }
   }
 });
