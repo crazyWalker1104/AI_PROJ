@@ -5,7 +5,15 @@ Page({
   data: {
     statusBarHeight: 44,
     currentTab: 1,
-    sentimentData: {},
+    sentimentData: {
+      fearGreedIndex: 0,
+      sentiment: '中性',
+      upLimit: 0,
+      downLimit: 0,
+      burstRate: 0,
+      yesterdayUpToday: 0,
+      updateTime: ''
+    },
     etfCategory: 'broad',
     etfList: []
   },
@@ -27,8 +35,16 @@ Page({
   },
 
   loadData() {
-    const sentimentData = mockSentiment;
-    const etfList = mockETFs[this.data.etfCategory] || [];
+    const sentimentData = mockSentiment || {
+      fearGreedIndex: 50,
+      sentiment: '中性',
+      upLimit: 0,
+      downLimit: 0,
+      burstRate: 0,
+      yesterdayUpToday: 0,
+      updateTime: ''
+    };
+    const etfList = mockETFs && mockETFs[this.data.etfCategory] ? mockETFs[this.data.etfCategory] : [];
 
     this.setData({
       sentimentData,
@@ -38,7 +54,7 @@ Page({
 
   onSwitchETF(e) {
     const category = e.currentTarget.dataset.category;
-    const etfList = mockETFs[category] || [];
+    const etfList = mockETFs && mockETFs[category] ? mockETFs[category] : [];
     this.setData({
       etfCategory: category,
       etfList

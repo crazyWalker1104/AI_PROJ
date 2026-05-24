@@ -28,8 +28,8 @@ Page({
 
   loadData() {
     this.setData({
-      dragonList: mockDragonList,
-      dealerRanking: mockDealerRanking
+      dragonList: mockDragonList || [],
+      dealerRanking: mockDealerRanking || []
     });
   },
 
@@ -41,7 +41,9 @@ Page({
   },
 
   onDragonExpand(e) {
-    const code = e.detail.code;
+    const code = e.detail && e.detail.code;
+    if (!code) return;
+    
     const dragonList = this.data.dragonList.map(item => {
       if (item.code === code) {
         return { ...item, expanded: !item.expanded };

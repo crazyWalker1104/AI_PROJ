@@ -7,7 +7,7 @@ Component({
     },
     value: {
       type: [String, Number],
-      value: '0'
+      value: 0
     },
     label: {
       type: String,
@@ -20,31 +20,38 @@ Component({
   },
 
   data: {
-    colorClass: 'neutral'
+    colorClass: 'neutral',
+    displayValue: '0'
   },
 
   observers: {
-    color() {
-      this.updateColorClass();
+    'value, color': function() {
+      this.updateDisplay();
     }
   },
 
   lifetimes: {
     attached() {
-      this.updateColorClass();
+      this.updateDisplay();
     }
   },
 
   methods: {
-    updateColorClass() {
-      const color = this.properties.color;
-      let colorClass = 'neutral';
-
-      if (color === 'success' || color === 'rise') colorClass = 'success';
-      else if (color === 'danger' || color === 'fall') colorClass = 'danger';
-      else if (color === 'warning') colorClass = 'warning';
-
-      this.setData({ colorClass });
+    updateDisplay() {
+      const value = this.properties.value;
+      const color = this.properties.color || 'neutral';
+      
+      let displayValue = value;
+      if (typeof value === 'number') {
+        displayValue = value.toString();
+      } else if (!value) {
+        displayValue = '0';
+      }
+      
+      this.setData({
+        displayValue,
+        colorClass: color
+      });
     }
   }
 });

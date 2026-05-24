@@ -4,7 +4,7 @@
     <view class="gauge-progress {{sentimentColorClass}}" style="transform: rotate({{rotateDeg}}deg);"></view>
   </view>
   <view class="gauge-center">
-    <text class="gauge-value {{sentimentColorClass}}">{{value}}</text>
-    <text class="gauge-label {{sentimentColorClass}}">{{label}}</text>
+    <text class="gauge-value {{sentimentColorClass}}">{{displayValue}}</text>
+    <text class="gauge-label {{sentimentColorClass}}">{{displayLabel}}</text>
   </view>
 </view>

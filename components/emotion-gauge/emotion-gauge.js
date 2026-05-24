@@ -13,7 +13,9 @@ Component({
 
   data: {
     rotateDeg: 0,
-    sentimentColorClass: 'neutral'
+    sentimentColorClass: 'neutral',
+    displayValue: 50,
+    displayLabel: '中性'
   },
 
   lifetimes: {
@@ -23,26 +25,32 @@ Component({
   },
 
   observers: {
-    value() {
+    'value, label': function() {
       this.updateGauge();
     }
   },
 
   methods: {
     updateGauge() {
-      const val = this.properties.value;
-      const rotate = (val / 100) * 360 - 90;
-      let colorClass = 'neutral';
-
-      if (val <= 20) colorClass = 'fear';
-      else if (val <= 40) colorClass = 'neutral-fear';
-      else if (val <= 60) colorClass = 'neutral';
-      else if (val <= 80) colorClass = 'greed';
-      else colorClass = 'extreme-greed';
-
+      const value = this.properties.value || 0;
+      const label = this.properties.label || '中性';
+      
+      // 计算旋转角度 (0-100 -> -135到135度)
+      const rotateDeg = (value / 100) * 270 - 135;
+      
+      // 确定颜色类
+      let sentimentColorClass = 'neutral';
+      if (value < 30) {
+        sentimentColorClass = 'fear';
+      } else if (value > 70) {
+        sentimentColorClass = 'greed';
+      }
+      
       this.setData({
-        rotateDeg: rotate,
-        sentimentColorClass: colorClass
+        rotateDeg,
+        sentimentColorClass,
+        displayValue: value,
+        displayLabel: label
       });
     }
   }

@@ -8,7 +8,9 @@ Page({
     watchList: [],
     rankingType: 'rise',
     rankingList: [],
-    searchKeyword: ''
+    searchKeyword: '',
+    isSearching: false,
+    searchResults: []
   },
 
   onLoad() {
@@ -26,11 +28,10 @@ Page({
   },
 
   onPullDownRefresh() {
-    // 模拟刷新数据
     setTimeout(() => {
       this.loadData();
       const watchList = mockFunds.slice(0, 3);
-      this.setData({ watchList });
+      this.setData({ watchList, isSearching: false, searchResults: [] });
       wx.showToast({ title: '刷新成功', icon: 'success' });
       wx.stopPullDownRefresh();
     }, 1000);
@@ -45,26 +46,52 @@ Page({
   },
 
   onSearchInput(e) {
-    this.setData({ searchKeyword: e.detail.value });
+    const keyword = e.detail.value;
+    this.setData({ searchKeyword: keyword });
+    
+    if (keyword) {
+      const results = mockFunds.filter(fund => 
+        fund.code.toLowerCase().includes(keyword.toLowerCase()) || 
+        fund.name.toLowerCase().includes(keyword.toLowerCase())
+      );
+      this.setData({ 
+        isSearching: true, 
+        searchResults: results 
+      });
+    } else {
+      this.setData({ 
+        isSearching: false, 
+        searchResults: [] 
+      });
+    }
   },
 
   onSearchFund() {
     const keyword = this.data.searchKeyword;
     if (!keyword) {
-      this.loadData();
+      wx.showToast({ title: '请输入基金代码或名称', icon: 'none' });
       return;
     }
-
-    const filtered = mockFunds.filter(fund => 
-      fund.code.includes(keyword) || fund.name.includes(keyword)
+    
+    const results = mockFunds.filter(fund => 
+      fund.code.toLowerCase().includes(keyword.toLowerCase()) || 
+      fund.name.toLowerCase().includes(keyword.toLowerCase())
     );
-
-    this.setData({ rankingList: filtered });
+    
+    if (results.length > 0) {
+      this.setData({ 
+        isSearching: true, 
+        searchResults: results 
+      });
+      wx.showToast({ title: `找到${results.length}个结果`, icon: 'success' });
+    } else {
+      wx.showToast({ title: '未找到相关基金', icon: 'none' });
+    }
   },
 
   onSwitchRanking(e) {
     const type = e.currentTarget.dataset.type;
-    this.setData({ rankingType: type });
+    this.setData({ rankingType: type, isSearching: false, searchResults: [] });
     this.loadData();
   },
 
