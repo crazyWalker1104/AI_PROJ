@@ -18,12 +18,34 @@ Page({
     this.setData({
       statusBarHeight: app.globalData.statusBarHeight || 44
     });
+    this.loadWatchList(); // 先加载自选列表
     this.loadData();
   },
 
   onShow() {
-    const watchList = mockFunds.slice(0, 3);
-    this.setData({ watchList });
+    // 从本地存储加载自选基金，不重置
+    this.loadWatchList();
+  },
+
+  // 从本地存储加载自选基金
+  loadWatchList() {
+    try {
+      const watchList = wx.getStorageSync('watchList') || [];
+      if (watchList.length > 0) {
+        this.setData({ watchList });
+      }
+    } catch (err) {
+      console.error('加载自选失败:', err);
+    }
+  },
+
+  // 保存自选基金到本地存储
+  saveWatchList() {
+    try {
+      wx.setStorageSync('watchList', this.data.watchList);
+    } catch (err) {
+      console.error('保存自选失败:', err);
+    }
   },
 
   onPullDownRefresh() {
@@ -94,6 +116,7 @@ Page({
 
     const watchList = [...this.data.watchList, fund];
     this.setData({ watchList });
+    this.saveWatchList(); // 持久化保存
     wx.showToast({ title: '已添加到自选', icon: 'success' });
   },
 
@@ -101,6 +124,7 @@ Page({
     const code = e.currentTarget.dataset.code;
     const watchList = this.data.watchList.filter(f => f.code !== code);
     this.setData({ watchList });
+    this.saveWatchList(); // 持久化保存
     wx.showToast({ title: '已删除', icon: 'success' });
   }
 });
