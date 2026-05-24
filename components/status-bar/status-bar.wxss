@@ -1,0 +1,36 @@
+/* components/status-bar/status-bar.wxss */
+
+.status-bar {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(10, 14, 26, 0.95) 0%, rgba(10, 14, 26, 0.8) 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.status-content {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.status-time {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-signal,
+.status-battery {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}

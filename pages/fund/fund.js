@@ -3,6 +3,8 @@ const { mockFunds } = require('../../utils/mock.js');
 
 Page({
   data: {
+    statusBarHeight: 44,
+    currentTab: 0,
     watchList: [],
     rankingType: 'rise',
     rankingList: [],
@@ -10,6 +12,10 @@ Page({
   },
 
   onLoad() {
+    const app = getApp();
+    this.setData({
+      statusBarHeight: app.globalData.statusBarHeight || 44
+    });
     this.loadData();
   },
 
@@ -17,6 +23,17 @@ Page({
     // 模拟已添加的自选基金
     const watchList = mockFunds.slice(0, 3);
     this.setData({ watchList });
+  },
+
+  onPullDownRefresh() {
+    // 模拟刷新数据
+    setTimeout(() => {
+      this.loadData();
+      const watchList = mockFunds.slice(0, 3);
+      this.setData({ watchList });
+      wx.showToast({ title: '刷新成功', icon: 'success' });
+      wx.stopPullDownRefresh();
+    }, 1000);
   },
 
   loadData() {
@@ -56,5 +73,12 @@ Page({
     if (fund && fund.name) {
       wx.showToast({ title: `查看 ${fund.name}`, icon: 'none' });
     }
+  },
+
+  onDeleteFund(e) {
+    const code = e.currentTarget.dataset.code;
+    const watchList = this.data.watchList.filter(f => f.code !== code);
+    this.setData({ watchList });
+    wx.showToast({ title: '已删除', icon: 'success' });
   }
 });

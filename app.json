@@ -10,26 +10,6 @@
     "navigationBarTitleText": "金融数据助手",
     "navigationBarTextStyle": "white"
   },
-  "tabBar": {
-    "color": "#94a3b8",
-    "selectedColor": "#6366f1",
-    "backgroundColor": "#1a2332",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/fund/fund",
-        "text": "基金估值"
-      },
-      {
-        "pagePath": "pages/sentiment/sentiment",
-        "text": "情绪分析"
-      },
-      {
-        "pagePath": "pages/dragon/dragon",
-        "text": "龙虎榜"
-      }
-    ]
-  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

@@ -1,10 +1,13 @@
 {
   "usingComponents": {
     "emotion-gauge": "/components/emotion-gauge/emotion-gauge",
-    "metric-card": "/components/metric-card/metric-card"
+    "metric-card": "/components/metric-card/metric-card",
+    "status-bar": "/components/status-bar/status-bar",
+    "tab-bar": "/components/tab-bar/tab-bar"
   },
   "navigationBarTitleText": "情绪分析",
   "navigationBarBackgroundColor": "#0a0e1a",
   "navigationBarTextStyle": "white",
-  "backgroundColor": "#0a0e1a"
+  "backgroundColor": "#0a0e1a",
+  "enablePullDownRefresh": true
 }

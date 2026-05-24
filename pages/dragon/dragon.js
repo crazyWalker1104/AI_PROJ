@@ -3,13 +3,27 @@ const { mockDragonList, mockDealerRanking } = require('../../utils/mock.js');
 
 Page({
   data: {
+    statusBarHeight: 44,
+    currentTab: 2,
     selectedDate: '2024-01-15',
     dragonList: [],
     dealerRanking: []
   },
 
   onLoad() {
+    const app = getApp();
+    this.setData({
+      statusBarHeight: app.globalData.statusBarHeight || 44
+    });
     this.loadData();
+  },
+
+  onPullDownRefresh() {
+    setTimeout(() => {
+      this.loadData();
+      wx.showToast({ title: '刷新成功', icon: 'success' });
+      wx.stopPullDownRefresh();
+    }, 1000);
   },
 
   loadData() {

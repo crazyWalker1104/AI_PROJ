@@ -1,9 +1,12 @@
 {
   "usingComponents": {
-    "dragon-card": "/components/dragon-card/dragon-card"
+    "dragon-card": "/components/dragon-card/dragon-card",
+    "status-bar": "/components/status-bar/status-bar",
+    "tab-bar": "/components/tab-bar/tab-bar"
   },
   "navigationBarTitleText": "龙虎榜",
   "navigationBarBackgroundColor": "#0a0e1a",
   "navigationBarTextStyle": "white",
-  "backgroundColor": "#0a0e1a"
+  "backgroundColor": "#0a0e1a",
+  "enablePullDownRefresh": true
 }

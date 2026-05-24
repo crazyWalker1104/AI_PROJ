@@ -4,10 +4,16 @@
   background-color: var(--bg-card);
   border-radius: 12rpx;
   padding: 24rpx;
-  margin-bottom: 12rpx;
   display: flex;
   flex-direction: column;
   gap: 16rpx;
+  transition: all 200ms ease;
+  position: relative;
+}
+
+.fund-card:active {
+  background-color: var(--bg-card-hover);
+  transform: scale(0.98);
 }
 
 .card-main {
@@ -54,6 +60,36 @@
   color: var(--text-muted);
 }
 
+/* 趋势图表 */
+.trend-chart {
+  height: 40rpx;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 8rpx;
+}
+
+.trend-dots {
+  display: flex;
+  align-items: flex-end;
+  gap: 6rpx;
+  height: 100%;
+}
+
+.trend-dot {
+  width: 8rpx;
+  border-radius: 4rpx;
+  transition: height 300ms ease;
+  min-height: 4rpx;
+}
+
+.trend-dot.rise {
+  background: linear-gradient(180deg, var(--success), #34d399);
+}
+
+.trend-dot.fall {
+  background: linear-gradient(180deg, var(--danger), #f87171);
+}
+
 .card-footer {
   display: flex;
   justify-content: flex-end;
@@ -79,6 +115,12 @@
   font-size: 24rpx;
 }
 
+.change-value {
+  font-size: 28rpx;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
 .change-badge.rise .change-arrow,
 .change-badge.rise .change-value {
   color: var(--success);
@@ -87,10 +129,4 @@
 .change-badge.fall .change-arrow,
 .change-badge.fall .change-value {
   color: var(--danger);
-}
-
-.change-value {
-  font-size: 28rpx;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600;
 }

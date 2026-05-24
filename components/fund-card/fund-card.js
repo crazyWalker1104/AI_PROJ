@@ -13,6 +13,12 @@ Component({
       if (fund && fund.code) {
         this.triggerEvent('tap', { fund });
       }
+    },
+    onDelete() {
+      const fund = this.properties.fund;
+      if (fund && fund.code) {
+        this.triggerEvent('delete', { code: fund.code });
+      }
     }
   }
 });

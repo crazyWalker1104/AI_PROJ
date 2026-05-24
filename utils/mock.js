@@ -47,14 +47,14 @@
 
 // 基金实时估值数据
 const mockFunds = [
-  { code: '000001', name: '平安优选混合A', estimateNav: 1.2345, navDate: '2024-01-15', estimateChange: 2.35 },
-  { code: '110022', name: '易方达消费行业股票', estimateNav: 3.5678, navDate: '2024-01-15', estimateChange: 1.87 },
-  { code: '420001', name: '天弘精选混合A', estimateNav: 1.0234, navDate: '2024-01-15', estimateChange: -0.45 },
-  { code: '160119', name: '南方500ETF联接A', estimateNav: 2.1234, navDate: '2024-01-15', estimateChange: 3.21 },
-  { code: '000961', name: '天弘沪深300ETF联接A', estimateNav: 1.5678, navDate: '2024-01-15', estimateChange: 1.56 },
-  { code: '163415', name: '兴全绿色投资混合', estimateNav: 2.8901, navDate: '2024-01-15', estimateChange: -1.23 },
-  { code: '519068', name: '汇添富成长焦点混合', estimateNav: 1.4567, navDate: '2024-01-15', estimateChange: 0.89 },
-  { code: '260101', name: '景顺长城内需增长混合', estimateNav: 3.2345, navDate: '2024-01-15', estimateChange: 4.12 }
+  { code: '000001', name: '平安优选混合A', estimateNav: 1.2345, navDate: '2024-01-15', estimateChange: 2.35, trend: [2, 3, 2.5, 3, 2.8, 3.2, 2.35] },
+  { code: '110022', name: '易方达消费行业股票', estimateNav: 3.5678, navDate: '2024-01-15', estimateChange: 1.87, trend: [1, 1.5, 1.8, 1.6, 1.9, 1.7, 1.87] },
+  { code: '420001', name: '天弘精选混合A', estimateNav: 1.0234, navDate: '2024-01-15', estimateChange: -0.45, trend: [0, -0.2, -0.3, -0.1, -0.4, -0.5, -0.45] },
+  { code: '160119', name: '南方500ETF联接A', estimateNav: 2.1234, navDate: '2024-01-15', estimateChange: 3.21, trend: [2, 2.5, 2.8, 3, 2.6, 3.1, 3.21] },
+  { code: '000961', name: '天弘沪深300ETF联接A', estimateNav: 1.5678, navDate: '2024-01-15', estimateChange: 1.56, trend: [1, 1.2, 1.4, 1.5, 1.3, 1.55, 1.56] },
+  { code: '163415', name: '兴全绿色投资混合', estimateNav: 2.8901, navDate: '2024-01-15', estimateChange: -1.23, trend: [0, -0.5, -0.8, -1, -1.2, -1.1, -1.23] },
+  { code: '519068', name: '汇添富成长焦点混合', estimateNav: 1.4567, navDate: '2024-01-15', estimateChange: 0.89, trend: [0.5, 0.6, 0.7, 0.8, 0.75, 0.85, 0.89] },
+  { code: '260101', name: '景顺长城内需增长混合', estimateNav: 3.2345, navDate: '2024-01-15', estimateChange: 4.12, trend: [2, 2.5, 3, 3.5, 3.8, 4, 4.12] }
 ];
 
 // 市场情绪数据

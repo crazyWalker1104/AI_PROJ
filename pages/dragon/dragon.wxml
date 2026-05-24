@@ -1,47 +1,57 @@
 <view class="dragon-page">
-  <!-- 日期选择 -->
-  <view class="date-picker">
-    <picker mode="date" value="{{selectedDate}}" bindchange="onDateChange">
-      <view class="date-display">
-        <text class="date-text">{{selectedDate}}</text>
-        <text class="date-arrow">▼</text>
-      </view>
-    </picker>
-  </view>
+  <!-- StatusBar -->
+  <status-bar height="{{statusBarHeight}}" />
 
-  <!-- 龙虎榜列表 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">龙虎榜</text>
+  <!-- 页面内容 -->
+  <view class="page-content" style="padding-top: {{statusBarHeight}}px;">
+    <!-- 日期选择 -->
+    <view class="date-picker">
+      <picker mode="date" value="{{selectedDate}}" bindchange="onDateChange">
+        <view class="date-display">
+          <text class="date-text">{{selectedDate}}</text>
+          <text class="date-arrow">▼</text>
+        </view>
+      </picker>
     </view>
-    <view class="dragon-list">
-      <block wx:for="{{dragonList}}" wx:key="code">
-        <dragon-card item="{{item}}" bind:expand="onDragonExpand" />
-      </block>
-      <view class="empty-state" wx:if="{{dragonList.length === 0}}">
-        <text class="empty-text">暂无龙虎榜数据</text>
+
+    <!-- 龙虎榜列表 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">龙虎榜</text>
+        <text class="section-count">{{dragonList.length}}只</text>
+      </view>
+      <view class="dragon-list">
+        <block wx:for="{{dragonList}}" wx:key="code">
+          <dragon-card item="{{item}}" bind:expand="onDragonExpand" />
+        </block>
+        <view class="empty-state" wx:if="{{dragonList.length === 0}}">
+          <text class="empty-text">暂无龙虎榜数据</text>
+        </view>
       </view>
     </view>
-  </view>
 
-  <!-- 营业部排行 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">实力营业部排行</text>
-    </view>
-    <view class="dealer-list">
-      <block wx:for="{{dealerRanking}}" wx:key="name">
-        <view class="dealer-item">
-          <view class="dealer-rank">{{index + 1}}</view>
-          <view class="dealer-info">
-            <text class="dealer-name">{{item.name}}</text>
-            <view class="dealer-stats">
-              <text class="stat-buy">买入 {{item.buyAmount}}万</text>
-              <text class="stat-sell">卖出 {{item.sellAmount}}万</text>
+    <!-- 营业部排行 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">实力营业部排行</text>
+      </view>
+      <view class="dealer-list">
+        <block wx:for="{{dealerRanking}}" wx:key="name">
+          <view class="dealer-item">
+            <view class="dealer-rank">{{index + 1}}</view>
+            <view class="dealer-info">
+              <text class="dealer-name">{{item.name}}</text>
+              <view class="dealer-stats">
+                <text class="stat-buy">买入 {{item.buyAmount}}万</text>
+                <text class="stat-sell">卖出 {{item.sellAmount}}万</text>
+              </view>
             </view>
           </view>
-        </view>
-      </block>
+        </block>
+      </view>
     </view>
   </view>
+
+  <!-- TabBar -->
+  <tab-bar currentTab="{{currentTab}}" />
 </view>

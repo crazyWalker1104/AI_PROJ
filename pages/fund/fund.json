@@ -1,9 +1,12 @@
 {
   "usingComponents": {
-    "fund-card": "/components/fund-card/fund-card"
+    "fund-card": "/components/fund-card/fund-card",
+    "status-bar": "/components/status-bar/status-bar",
+    "tab-bar": "/components/tab-bar/tab-bar"
   },
   "navigationBarTitleText": "基金估值",
   "navigationBarBackgroundColor": "#0a0e1a",
   "navigationBarTextStyle": "white",
-  "backgroundColor": "#0a0e1a"
+  "backgroundColor": "#0a0e1a",
+  "enablePullDownRefresh": true
 }

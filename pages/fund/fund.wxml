@@ -1,53 +1,80 @@
 <view class="fund-page">
-  <!-- 搜索栏 -->
-  <view class="search-bar">
-    <input 
-      type="text" 
-      placeholder="搜索基金代码或名称" 
-      class="search-input"
-      bindinput="onSearchInput"
-      bindconfirm="onSearchFund"
-      confirm-type="search"
-    />
-    <view class="btn-search">🔍</view>
-  </view>
+  <!-- StatusBar -->
+  <status-bar height="{{statusBarHeight}}" />
 
-  <!-- 自选基金列表 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">我的自选</text>
+  <!-- 页面内容 -->
+  <view class="page-content" style="padding-top: {{statusBarHeight}}px;">
+    <!-- 搜索栏 -->
+    <view class="search-bar">
+      <input 
+        type="text" 
+        placeholder="搜索基金代码或名称" 
+        class="search-input"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchFund"
+        confirm-type="search"
+      />
+      <view class="btn-search" bindtap="onSearchFund">🔍</view>
     </view>
-    <view class="fund-list">
-      <block wx:for="{{watchList}}" wx:key="code">
-        <fund-card fund="{{item}}" bind:tap="onFundTap" />
-      </block>
-      <view class="empty-state" wx:if="{{watchList.length === 0}}">
-        <text class="empty-text">暂无自选基金</text>
+
+    <!-- 自选基金列表 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">我的自选</text>
+        <text class="section-count">{{watchList.length}}只</text>
+      </view>
+      <view class="fund-list">
+        <block wx:for="{{watchList}}" wx:key="code">
+          <fund-card 
+            fund="{{item}}" 
+            bind:tap="onFundTap"
+            bind:delete="onDeleteFund"
+            data-code="{{item.code}}"
+          />
+        </block>
+        <view class="empty-state" wx:if="{{watchList.length === 0}}">
+          <text class="empty-text">暂无自选基金</text>
+          <text class="empty-hint">在搜索结果中添加自选</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 估值排行榜 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">估值排行榜</text>
+      </view>
+      <view class="ranking-tabs">
+        <view 
+          class="ranking-tab {{rankingType === 'rise' ? 'active' : ''}}" 
+          bindtap="onSwitchRanking" 
+          data-type="rise"
+        >
+          <text class="tab-label">涨幅榜</text>
+          <view class="tab-indicator" wx:if="{{rankingType === 'rise'}}"></view>
+        </view>
+        <view 
+          class="ranking-tab {{rankingType === 'fall' ? 'active' : ''}}" 
+          bindtap="onSwitchRanking" 
+          data-type="fall"
+        >
+          <text class="tab-label">跌幅榜</text>
+          <view class="tab-indicator" wx:if="{{rankingType === 'fall'}}"></view>
+        </view>
+      </view>
+      <view class="fund-list">
+        <block wx:for="{{rankingList}}" wx:key="code">
+          <fund-card 
+            fund="{{item}}" 
+            bind:tap="onFundTap"
+            bind:delete="onDeleteFund"
+            data-code="{{item.code}}"
+          />
+        </block>
       </view>
     </view>
   </view>
 
-  <!-- 估值排行榜 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">估值排行榜</text>
-    </view>
-    <view class="ranking-tabs">
-      <view 
-        class="ranking-tab {{rankingType === 'rise' ? 'active' : ''}}" 
-        bindtap="onSwitchRanking" 
-        data-type="rise"
-      >涨幅榜</view>
-      <view 
-        class="ranking-tab {{rankingType === 'fall' ? 'active' : ''}}" 
-        bindtap="onSwitchRanking" 
-        data-type="fall"
-      >跌幅榜</view>
-    </view>
-    <view class="fund-list">
-      <block wx:for="{{rankingList}}" wx:key="code">
-        <fund-card fund="{{item}}" bind:tap="onFundTap" />
-      </block>
-    </view>
-  </view>
+  <!-- TabBar -->
+  <tab-bar currentTab="{{currentTab}}" />
 </view>

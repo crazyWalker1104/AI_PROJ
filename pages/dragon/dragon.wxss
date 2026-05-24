@@ -3,11 +3,27 @@
 .dragon-page {
   min-height: 100vh;
   background-color: var(--bg-primary);
-  padding: 16rpx 16px 120rpx;
+  padding-bottom: 140rpx;
+  animation: fadeInUp 300ms ease;
+}
+
+.page-content {
+  padding: 0 16px;
+  animation: fadeInUp 300ms ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .date-picker {
-  padding: 0 16rpx;
   margin-bottom: 24rpx;
 }
 
@@ -49,6 +65,11 @@
   color: var(--text-primary);
 }
 
+.section-count {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
 .dragon-list {
   display: flex;
   flex-direction: column;
@@ -67,6 +88,12 @@
   padding: 24rpx;
   background-color: var(--bg-card);
   border-radius: 12rpx;
+  transition: all 200ms ease;
+}
+
+.dealer-item:active {
+  background-color: var(--bg-card-hover);
+  transform: scale(0.98);
 }
 
 .dealer-rank {
@@ -78,21 +105,20 @@
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   border-radius: 8rpx;
   font-size: 28rpx;
-  font-weight: 700;
-  color: #fff;
+  color: white;
+  font-weight: 600;
 }
 
 .dealer-info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
 }
 
 .dealer-name {
+  display: block;
   font-size: 28rpx;
   color: var(--text-primary);
   font-weight: 500;
+  margin-bottom: 8rpx;
 }
 
 .dealer-stats {
@@ -100,24 +126,16 @@
   gap: 24rpx;
 }
 
-.stat-buy {
+.stat-buy,
+.stat-sell {
   font-size: 24rpx;
-  color: var(--success);
   font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-buy {
+  color: var(--success);
 }
 
 .stat-sell {
-  font-size: 24rpx;
   color: var(--danger);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.empty-state {
-  padding: 48rpx;
-  text-align: center;
-}
-
-.empty-text {
-  font-size: 28rpx;
-  color: var(--text-muted);
 }

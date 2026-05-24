@@ -1,0 +1,9 @@
+<view class="status-bar" style="height: {{height}}px;">
+  <view class="status-content">
+    <text class="status-time">{{time}}</text>
+    <view class="status-right">
+      <text class="status-signal">📶</text>
+      <text class="status-battery">🔋 {{battery}}%</text>
+    </view>
+  </view>
+</view>

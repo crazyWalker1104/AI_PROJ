@@ -3,16 +3,39 @@
 .fund-page {
   min-height: 100vh;
   background-color: var(--bg-primary);
-  padding: 16rpx 16px 120rpx;
+  padding-bottom: 140rpx;
+  animation: fadeInUp 300ms ease;
+}
+
+.page-content {
+  padding: 0 16px;
+  animation: fadeInUp 300ms ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  padding: 16rpx 24rpx;
+  padding: 20rpx 24rpx;
   background-color: var(--bg-card);
   border-radius: 12rpx;
   margin-bottom: 24rpx;
+  transition: all 200ms ease;
+}
+
+.search-bar:focus-within {
+  background-color: var(--bg-card-hover);
+  box-shadow: 0 0 0 2rpx var(--accent-primary);
 }
 
 .search-input {
@@ -27,12 +50,18 @@
 }
 
 .btn-search {
-  font-size: 28rpx;
-  padding-left: 16rpx;
+  font-size: 32rpx;
+  padding: 8rpx 16rpx;
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+
+.btn-search:active {
+  opacity: 1;
 }
 
 .section {
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .section-header {
@@ -48,31 +77,78 @@
   color: var(--text-primary);
 }
 
+.section-count {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
 .ranking-tabs {
   display: flex;
   gap: 8rpx;
   margin-bottom: 16rpx;
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+  padding: 6rpx;
 }
 
 .ranking-tab {
-  padding: 12rpx 32rpx;
-  font-size: 26rpx;
-  color: var(--text-secondary);
-  background-color: var(--bg-card);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0;
   border-radius: 8rpx;
+  transition: all 200ms ease;
+  position: relative;
 }
 
 .ranking-tab.active {
+  background-color: var(--bg-card-hover);
+}
+
+.ranking-tab .tab-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  transition: color 200ms;
+}
+
+.ranking-tab.active .tab-label {
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  font-weight: 500;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  width: 40rpx;
+  height: 4rpx;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2rpx;
+}
+
+.fund-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
 }
 
 .empty-state {
-  padding: 48rpx;
+  padding: 80rpx 48rpx;
   text-align: center;
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
 }
 
 .empty-text {
+  display: block;
   font-size: 28rpx;
   color: var(--text-muted);
+  margin-bottom: 12rpx;
+}
+
+.empty-hint {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-muted);
+  opacity: 0.7;
 }

@@ -3,7 +3,24 @@
 .sentiment-page {
   min-height: 100vh;
   background-color: var(--bg-primary);
-  padding: 16rpx 16px 120rpx;
+  padding-bottom: 140rpx;
+  animation: fadeInUp 300ms ease;
+}
+
+.page-content {
+  padding: 0 16px;
+  animation: fadeInUp 300ms ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .emotion-section {
@@ -37,23 +54,49 @@
   color: var(--text-primary);
 }
 
+.section-count {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
 .etf-tabs {
   display: flex;
   gap: 8rpx;
   margin-bottom: 16rpx;
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+  padding: 6rpx;
 }
 
 .etf-tab {
-  padding: 12rpx 32rpx;
-  font-size: 26rpx;
-  color: var(--text-secondary);
-  background-color: var(--bg-card);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0;
   border-radius: 8rpx;
+  transition: all 200ms ease;
+  position: relative;
 }
 
-.etf-tab.active {
+.etf-tab .tab-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  transition: color 200ms;
+}
+
+.etf-tab.active .tab-label {
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  font-weight: 500;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  width: 40rpx;
+  height: 4rpx;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2rpx;
 }
 
 .etf-list {
@@ -83,20 +126,19 @@
 .etf-code {
   font-size: 24rpx;
   color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
 }
 
 .etf-flow {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 12rpx;
 }
 
 .etf-net-inflow {
-  font-size: 32rpx;
-  font-family: 'JetBrains Mono', monospace;
+  font-size: 28rpx;
   font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .etf-net-inflow.rise {
@@ -109,7 +151,7 @@
 
 .etf-flow-rate {
   font-size: 24rpx;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .etf-bar {
@@ -126,9 +168,9 @@
 }
 
 .etf-bar-fill.rise {
-  background-color: var(--success);
+  background: linear-gradient(90deg, var(--success), #34d399);
 }
 
 .etf-bar-fill.fall {
-  background-color: var(--danger);
+  background: linear-gradient(90deg, var(--danger), #f87171);
 }

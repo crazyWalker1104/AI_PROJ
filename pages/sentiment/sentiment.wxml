@@ -1,83 +1,101 @@
 <view class="sentiment-page">
-  <!-- 情绪仪表盘 -->
-  <view class="emotion-section">
-    <emotion-gauge 
-      value="{{sentimentData.fearGreedIndex}}" 
-      label="{{sentimentData.sentiment}}"
-    />
-  </view>
+  <!-- StatusBar -->
+  <status-bar height="{{statusBarHeight}}" />
 
-  <!-- 市场情绪指标 -->
-  <view class="metrics-grid">
-    <metric-card 
-      icon="📈" 
-      value="{{sentimentData.upLimit}}" 
-      label="涨停数"
-      color="success"
-    />
-    <metric-card 
-      icon="📉" 
-      value="{{sentimentData.downLimit}}" 
-      label="跌停数"
-      color="danger"
-    />
-    <metric-card 
-      icon="💥" 
-      value="{{sentimentData.burstRate}}%" 
-      label="炸板率"
-      color="warning"
-    />
-    <metric-card 
-      icon="🔥" 
-      value="{{sentimentData.yesterdayUpToday}}%" 
-      label="昨日涨停今表现"
-      color="{{sentimentData.yesterdayUpToday >= 0 ? 'success' : 'danger'}}"
-    />
-  </view>
+  <!-- 页面内容 -->
+  <view class="page-content" style="padding-top: {{statusBarHeight}}px;">
+    <!-- 情绪仪表盘 -->
+    <view class="emotion-section">
+      <emotion-gauge 
+        value="{{sentimentData.fearGreedIndex}}" 
+        label="{{sentimentData.sentiment}}"
+      />
+    </view>
 
-  <!-- ETF资金流向 -->
-  <view class="section">
-    <view class="section-header">
-      <text class="section-title">ETF资金流向</text>
+    <!-- 市场情绪指标 -->
+    <view class="metrics-grid">
+      <metric-card 
+        icon="📈" 
+        value="{{sentimentData.upLimit}}" 
+        label="涨停数"
+        color="success"
+      />
+      <metric-card 
+        icon="📉" 
+        value="{{sentimentData.downLimit}}" 
+        label="跌停数"
+        color="danger"
+      />
+      <metric-card 
+        icon="💥" 
+        value="{{sentimentData.burstRate}}%" 
+        label="炸板率"
+        color="warning"
+      />
+      <metric-card 
+        icon="🔥" 
+        value="{{sentimentData.yesterdayUpToday}}%" 
+        label="昨日涨停今表现"
+        color="{{sentimentData.yesterdayUpToday >= 0 ? 'success' : 'danger'}}"
+      />
     </view>
-    <view class="etf-tabs">
-      <view 
-        class="etf-tab {{etfCategory === 'broad' ? 'active' : ''}}" 
-        bindtap="onSwitchETF" 
-        data-category="broad"
-      >宽基</view>
-      <view 
-        class="etf-tab {{etfCategory === 'industry' ? 'active' : ''}}" 
-        bindtap="onSwitchETF" 
-        data-category="industry"
-      >行业</view>
-      <view 
-        class="etf-tab {{etfCategory === 'cross' ? 'active' : ''}}" 
-        bindtap="onSwitchETF" 
-        data-category="cross"
-      >跨境</view>
-    </view>
-    <view class="etf-list">
-      <block wx:for="{{etfList}}" wx:key="code">
-        <view class="etf-item">
-          <view class="etf-info">
-            <text class="etf-name">{{item.name}}</text>
-            <text class="etf-code">{{item.code}}</text>
-          </view>
-          <view class="etf-flow">
-            <text class="etf-net-inflow {{item.netInflow >= 0 ? 'rise' : 'fall'}}">
-              {{item.netInflow >= 0 ? '+' : ''}}{{item.netInflow}}亿
-            </text>
-            <text class="etf-flow-rate">{{item.flowRate}}%</text>
-          </view>
-          <view class="etf-bar">
-            <view 
-              class="etf-bar-fill {{item.netInflow >= 0 ? 'rise' : 'fall'}}" 
-              style="width: {{item.flowRate * 10}}%"
-            ></view>
-          </view>
+
+    <!-- ETF资金流向 -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title">ETF资金流向</text>
+      </view>
+      <view class="etf-tabs">
+        <view 
+          class="etf-tab {{etfCategory === 'broad' ? 'active' : ''}}" 
+          bindtap="onSwitchETF" 
+          data-category="broad"
+        >
+          <text class="tab-label">宽基</text>
+          <view class="tab-indicator" wx:if="{{etfCategory === 'broad'}}"></view>
         </view>
-      </block>
+        <view 
+          class="etf-tab {{etfCategory === 'industry' ? 'active' : ''}}" 
+          bindtap="onSwitchETF" 
+          data-category="industry"
+        >
+          <text class="tab-label">行业</text>
+          <view class="tab-indicator" wx:if="{{etfCategory === 'industry'}}"></view>
+        </view>
+        <view 
+          class="etf-tab {{etfCategory === 'cross' ? 'active' : ''}}" 
+          bindtap="onSwitchETF" 
+          data-category="cross"
+        >
+          <text class="tab-label">跨境</text>
+          <view class="tab-indicator" wx:if="{{etfCategory === 'cross'}}"></view>
+        </view>
+      </view>
+      <view class="etf-list">
+        <block wx:for="{{etfList}}" wx:key="code">
+          <view class="etf-item">
+            <view class="etf-info">
+              <text class="etf-name">{{item.name}}</text>
+              <text class="etf-code">{{item.code}}</text>
+            </view>
+            <view class="etf-flow">
+              <text class="etf-net-inflow {{item.netInflow >= 0 ? 'rise' : 'fall'}}">
+                {{item.netInflow >= 0 ? '+' : ''}}{{item.netInflow}}亿
+              </text>
+              <text class="etf-flow-rate">{{item.flowRate}}%</text>
+            </view>
+            <view class="etf-bar">
+              <view 
+                class="etf-bar-fill {{item.netInflow >= 0 ? 'rise' : 'fall'}}" 
+                style="width: {{item.flowRate * 10}}%"
+              ></view>
+            </view>
+          </view>
+        </block>
+      </view>
     </view>
   </view>
+
+  <!-- TabBar -->
+  <tab-bar currentTab="{{currentTab}}" />
 </view>
