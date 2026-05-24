@@ -156,10 +156,10 @@ class TushareService {
 
       if (!data || !data.items || data.items.length === 0) {
         logger.warn('龙虎榜数据为空，使用Mock');
-        return { ...mockService.getDragonList(date), source: 'mock' };
+        return mockService.getDragonList(date);
       }
 
-      // 转换数据格式
+      // 转换数据格式 - 返回数组
       const columns = data.fields;
       const dragonList = data.items.map(item => {
         const obj = {};
@@ -167,23 +167,26 @@ class TushareService {
           obj[col] = item[idx];
         });
         return {
+          date: date || this.formatDate(new Date()),
           code: obj.ts_code?.replace('.SH', '').replace('.SZ', '') || '',
           name: obj.name || '',
-          close: obj.close || 0,
-          changePercent: obj.pct_change || 0,
+          closePrice: obj.close || 0,
+          changeRate: obj.pct_change || 0,
           reason: obj.reason || '',
-          buySeats: obj.buy_seats || 0,
-          sellSeats: obj.sell_seats || 0,
-          netAmount: obj.net_amount || 0,
+          reasonCode: 'rise7',
+          institutionBuy: obj.buy_amount || 0,
+          institutionSell: obj.sell_amount || 0,
+          dealerBuy: 0,
+          dealerSell: 0,
           source: 'tushare'
         };
       });
 
       logger.info(`龙虎榜获取成功: ${dragonList.length}条`);
-      return { dragonList, date, source: 'tushare', timestamp: Date.now() };
+      return dragonList;
     } catch (err) {
       logger.error(`龙虎榜获取失败: ${err.message}`);
-      return { ...mockService.getDragonList(date), source: 'mock' };
+      return mockService.getDragonList(date);
     }
   }
 

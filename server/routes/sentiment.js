@@ -37,6 +37,36 @@ router.get('/index', async (req, res) => {
   }
 });
 
+// 根路径：返回完整情绪数据（兼容前端调用）
+router.get('/', async (req, res) => {
+  try {
+    let sentimentData = cache.get('sentiment:index');
+    let marketData = cache.get('sentiment:market');
+
+    if (!sentimentData) {
+      sentimentData = await tushare.getSentimentIndex();
+      cache.set('sentiment:index', sentimentData, { memoryTTL: 600000, fileTTL: 3600000 });
+    }
+
+    if (!marketData) {
+      marketData = await tushare.getMarketMetrics();
+      cache.set('sentiment:market', marketData);
+    }
+
+    const data = {
+      ...sentimentData,
+      marketMetrics: marketData
+    };
+
+    jsonRes(res, data, 'api');
+  } catch (err) {
+    logger.error('情绪数据失败: ' + err.message);
+    const mockSentiment = require('../services/mockService').getSentimentIndex();
+    const mockMarket = require('../services/mockService').getMarketMetrics();
+    jsonRes(res, { ...mockSentiment, marketMetrics: mockMarket }, 'mock');
+  }
+});
+
 router.get('/market', async (req, res) => {
   try {
     let data = cache.get('sentiment:market');
