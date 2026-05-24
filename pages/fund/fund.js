@@ -102,6 +102,33 @@ Page({
     }
   },
 
+  onAddToWatchlist(e) {
+    const fund = e.currentTarget.dataset.fund;
+    if (!fund) return;
+
+    const watchList = this.data.watchList;
+    const exists = watchList.some(f => f.code === fund.code);
+
+    if (exists) {
+      wx.showToast({ title: '已在自选中', icon: 'none' });
+      return;
+    }
+
+    watchList.push(fund);
+    this.setData({ watchList });
+
+    // 更新搜索结果中该基金的状态
+    const searchResults = this.data.searchResults.map(item => {
+      if (item.code === fund.code) {
+        return { ...item, isAdded: true };
+      }
+      return item;
+    });
+    this.setData({ searchResults });
+
+    wx.showToast({ title: '已添加到自选', icon: 'success' });
+  },
+
   onDeleteFund(e) {
     const code = e.currentTarget.dataset.code;
     const watchList = this.data.watchList.filter(f => f.code !== code);

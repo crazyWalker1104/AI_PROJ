@@ -132,7 +132,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12rpx;
+  margin-top: 16rpx;
 }
 
 .etf-net-inflow {
@@ -154,23 +154,43 @@
   color: var(--text-muted);
 }
 
-.etf-bar {
-  height: 8rpx;
+.etf-bar-container {
+  margin: 16rpx 0;
+}
+
+.etf-bar-bg {
+  height: 16rpx;
   background-color: var(--bg-secondary);
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   overflow: hidden;
+  position: relative;
 }
 
 .etf-bar-fill {
   height: 100%;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   transition: width 300ms ease;
+  min-width: 8rpx;
 }
 
 .etf-bar-fill.rise {
   background: linear-gradient(90deg, var(--success), #34d399);
+  box-shadow: 0 0 10rpx rgba(16, 185, 129, 0.4);
 }
 
 .etf-bar-fill.fall {
   background: linear-gradient(90deg, var(--danger), #f87171);
+  box-shadow: 0 0 10rpx rgba(239, 68, 68, 0.4);
+}
+
+.etf-bar-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.bar-marker {
+  font-size: 20rpx;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
 }

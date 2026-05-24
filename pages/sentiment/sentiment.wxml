@@ -78,17 +78,24 @@
               <text class="etf-name">{{item.name}}</text>
               <text class="etf-code">{{item.code}}</text>
             </view>
+            <view class="etf-bar-container">
+              <view class="etf-bar-bg">
+                <view 
+                  class="etf-bar-fill {{item.netInflow >= 0 ? 'rise' : 'fall'}}" 
+                  style="width: {{item.flowRate * 3}}%"
+                ></view>
+              </view>
+              <view class="etf-bar-markers">
+                <text class="bar-marker">0%</text>
+                <text class="bar-marker">{{item.flowRate}}%</text>
+                <text class="bar-marker">30%+</text>
+              </view>
+            </view>
             <view class="etf-flow">
               <text class="etf-net-inflow {{item.netInflow >= 0 ? 'rise' : 'fall'}}">
                 {{item.netInflow >= 0 ? '+' : ''}}{{item.netInflow}}亿
               </text>
-              <text class="etf-flow-rate">{{item.flowRate}}%</text>
-            </view>
-            <view class="etf-bar">
-              <view 
-                class="etf-bar-fill {{item.netInflow >= 0 ? 'rise' : 'fall'}}" 
-                style="width: {{item.flowRate * 10}}%"
-              ></view>
+              <text class="etf-flow-rate">流入率 {{item.flowRate}}%</text>
             </view>
           </view>
         </block>
