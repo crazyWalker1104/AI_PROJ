@@ -26,12 +26,16 @@
       </view>
       <view class="fund-list">
         <block wx:for="{{watchList}}" wx:key="code">
-          <fund-card 
-            fund="{{item}}" 
-            bind:tap="onFundTap"
-            bind:delete="onDeleteFund"
-            data-code="{{item.code}}"
-          />
+          <view class="watchlist-item">
+            <fund-card 
+              fund="{{item}}" 
+              bind:tap="onFundTap"
+              data-code="{{item.code}}"
+            />
+            <view class="btn-delete" bindtap="onDeleteFund" data-code="{{item.code}}">
+              <text class="btn-delete-text">删除</text>
+            </view>
+          </view>
         </block>
         <view class="empty-state" wx:if="{{watchList.length === 0}}">
           <text class="empty-text">暂无自选基金</text>

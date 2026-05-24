@@ -132,6 +132,34 @@
   gap: 12rpx;
 }
 
+.watchlist-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  position: relative;
+}
+
+.watchlist-item .fund-card {
+  margin: 0;
+}
+
+.btn-delete {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 8rpx;
+}
+
+.btn-delete-text {
+  font-size: 22rpx;
+  color: var(--danger);
+  opacity: 0.7;
+  transition: opacity 200ms;
+}
+
+.btn-delete-text:active {
+  opacity: 1;
+}
+
 .empty-state {
   padding: 80rpx 48rpx;
   text-align: center;
