@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "dragon-card": "/components/dragon-card/dragon-card"
+  },
+  "navigationBarTitleText": "龙虎榜",
+  "navigationBarBackgroundColor": "#0a0e1a",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#0a0e1a"
+}

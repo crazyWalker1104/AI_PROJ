@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "fund-card": "/components/fund-card/fund-card",
+    "emotion-gauge": "/components/emotion-gauge/emotion-gauge",
+    "metric-card": "/components/metric-card/metric-card",
+    "dragon-card": "/components/dragon-card/dragon-card"
+  },
+  "navigationBarTitleText": "金融数据助手",
+  "navigationBarBackgroundColor": "#0a0e1a",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#0a0e1a"
+}

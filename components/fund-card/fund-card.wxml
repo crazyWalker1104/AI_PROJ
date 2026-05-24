@@ -1,0 +1,18 @@
+<view class="fund-card" bindtap="onTap">
+  <view class="card-main">
+    <view class="fund-info">
+      <text class="fund-code">{{fund.code}}</text>
+      <text class="fund-name">{{fund.name}}</text>
+    </view>
+    <view class="nav-info">
+      <text class="estimate-nav">{{fund.estimateNav}}</text>
+      <text class="nav-date">{{fund.navDate}}</text>
+    </view>
+  </view>
+  <view class="card-footer">
+    <view class="change-badge {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}">
+      <text class="change-arrow">{{fund.estimateChange >= 0 ? '↑' : '↓'}}</text>
+      <text class="change-value">{{fund.estimateChange >= 0 ? '+' : ''}}{{fund.estimateChange}}%</text>
+    </view>
+  </view>
+</view>

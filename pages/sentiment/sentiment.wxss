@@ -1,0 +1,134 @@
+/* pages/sentiment/sentiment.wxss */
+
+.sentiment-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding: 16rpx 16px 120rpx;
+}
+
+.emotion-section {
+  display: flex;
+  justify-content: center;
+  padding: 48rpx 0;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12rpx;
+  padding: 0 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.section {
+  padding: 0 16rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.etf-tabs {
+  display: flex;
+  gap: 8rpx;
+  margin-bottom: 16rpx;
+}
+
+.etf-tab {
+  padding: 12rpx 32rpx;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  border-radius: 8rpx;
+}
+
+.etf-tab.active {
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.etf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.etf-item {
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+  padding: 24rpx;
+}
+
+.etf-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.etf-name {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.etf-code {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.etf-flow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12rpx;
+}
+
+.etf-net-inflow {
+  font-size: 32rpx;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.etf-net-inflow.rise {
+  color: var(--success);
+}
+
+.etf-net-inflow.fall {
+  color: var(--danger);
+}
+
+.etf-flow-rate {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.etf-bar {
+  height: 8rpx;
+  background-color: var(--bg-secondary);
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.etf-bar-fill {
+  height: 100%;
+  border-radius: 4rpx;
+  transition: width 300ms ease;
+}
+
+.etf-bar-fill.rise {
+  background-color: var(--success);
+}
+
+.etf-bar-fill.fall {
+  background-color: var(--danger);
+}

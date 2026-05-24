@@ -1,0 +1,103 @@
+/* components/emotion-gauge/emotion-gauge.wxss */
+
+.emotion-gauge {
+  position: relative;
+  width: 400rpx;
+  height: 400rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-ring {
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-bg {
+  position: absolute;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  border: 24rpx solid var(--bg-card);
+  box-sizing: border-box;
+}
+
+.gauge-progress {
+  position: absolute;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  border: 24rpx solid transparent;
+  transition: transform 0.5s ease-out;
+}
+
+.gauge-progress.fear {
+  border-top-color: #ef4444;
+  border-right-color: #ef4444;
+}
+
+.gauge-progress.neutral-fear {
+  border-top-color: #f59e0b;
+  border-right-color: #f59e0b;
+}
+
+.gauge-progress.neutral {
+  border-top-color: #eab308;
+  border-right-color: #eab308;
+}
+
+.gauge-progress.greed {
+  border-top-color: #22c55e;
+  border-right-color: #22c55e;
+}
+
+.gauge-progress.extreme-greed {
+  border-top-color: #10b981;
+  border-right-color: #10b981;
+}
+
+.gauge-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.gauge-value {
+  font-size: 72rpx;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+}
+
+.gauge-label {
+  font-size: 28rpx;
+  margin-top: 8rpx;
+}
+
+.gauge-value.fear,
+.gauge-label.fear,
+.gauge-value.neutral-fear,
+.gauge-label.neutral-fear {
+  color: #ef4444;
+}
+
+.gauge-value.neutral,
+.gauge-label.neutral {
+  color: #eab308;
+}
+
+.gauge-value.greed,
+.gauge-label.greed {
+  color: #22c55e;
+}
+
+.gauge-value.extreme-greed,
+.gauge-label.extreme-greed {
+  color: #10b981;
+}

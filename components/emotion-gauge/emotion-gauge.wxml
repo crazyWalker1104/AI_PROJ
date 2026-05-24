@@ -1,0 +1,10 @@
+<view class="emotion-gauge">
+  <view class="gauge-ring">
+    <view class="gauge-bg"></view>
+    <view class="gauge-progress {{sentimentColorClass}}" style="transform: rotate({{rotateDeg}}deg);"></view>
+  </view>
+  <view class="gauge-center">
+    <text class="gauge-value {{sentimentColorClass}}">{{value}}</text>
+    <text class="gauge-label {{sentimentColorClass}}">{{label}}</text>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "fund-card": "/components/fund-card/fund-card"
+  },
+  "navigationBarTitleText": "基金估值",
+  "navigationBarBackgroundColor": "#0a0e1a",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#0a0e1a"
+}

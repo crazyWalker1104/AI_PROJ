@@ -1,0 +1,123 @@
+/* pages/dragon/dragon.wxss */
+
+.dragon-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding: 16rpx 16px 120rpx;
+}
+
+.date-picker {
+  padding: 0 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 24rpx;
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+}
+
+.date-text {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.date-arrow {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+.section {
+  margin-bottom: 24rpx;
+  padding: 0 16rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dragon-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.dealer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.dealer-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx;
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+}
+
+.dealer-rank {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dealer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.dealer-name {
+  font-size: 28rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.dealer-stats {
+  display: flex;
+  gap: 24rpx;
+}
+
+.stat-buy {
+  font-size: 24rpx;
+  color: var(--success);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-sell {
+  font-size: 24rpx;
+  color: var(--danger);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.empty-state {
+  padding: 48rpx;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: var(--text-muted);
+}

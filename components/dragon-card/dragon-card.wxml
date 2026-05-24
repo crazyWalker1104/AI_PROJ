@@ -1,0 +1,42 @@
+<view class="dragon-card" bindtap="onExpand">
+  <view class="card-header">
+    <view class="stock-info">
+      <text class="stock-code">{{item.code}}</text>
+      <text class="stock-name">{{item.name}}</text>
+    </view>
+    <view class="reason-tag {{reasonClass}}">
+      <text class="reason-text">{{item.reason}}</text>
+    </view>
+  </view>
+  <view class="card-body">
+    <view class="price-info">
+      <text class="close-price">{{item.closePrice}}</text>
+      <text class="change-rate {{item.changeRate >= 0 ? 'rise' : 'fall'}}">
+        {{item.changeRate >= 0 ? '+' : ''}}{{item.changeRate}}%
+      </text>
+    </view>
+    <view class="expand-icon {{item.expanded ? 'rotated' : ''}}">▼</view>
+  </view>
+  <view class="detail-section {{item.expanded ? 'expanded' : ''}}">
+    <view class="detail-row">
+      <view class="detail-item">
+        <text class="detail-label">机构买入</text>
+        <text class="detail-value rise">{{item.institutionBuy}}万</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">机构卖出</text>
+        <text class="detail-value fall">{{item.institutionSell}}万</text>
+      </view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-item">
+        <text class="detail-label">营业部买入</text>
+        <text class="detail-value rise">{{item.dealerBuy}}万</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">营业部卖出</text>
+        <text class="detail-value fall">{{item.dealerSell}}万</text>
+      </view>
+    </view>
+  </view>
+</view>

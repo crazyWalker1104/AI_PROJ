@@ -1,0 +1,144 @@
+/* components/dragon-card/dragon-card.wxss */
+
+.dragon-card {
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 12rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.stock-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.stock-code {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stock-name {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.reason-tag {
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 22rpx;
+}
+
+.reason-tag.rise7,
+.reason-tag.exceed {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.reason-tag.fall7 {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+
+.reason-tag.turnover20 {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: var(--accent-primary);
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-info {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+}
+
+.close-price {
+  font-size: 32rpx;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.change-rate {
+  font-size: 28rpx;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.change-rate.rise {
+  color: var(--success);
+}
+
+.change-rate.fall {
+  color: var(--danger);
+}
+
+.expand-icon {
+  font-size: 24rpx;
+  color: var(--text-muted);
+  transition: transform 200ms ease;
+}
+
+.expand-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.detail-section {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+
+.detail-section.expanded {
+  max-height: 300rpx;
+  margin-top: 16rpx;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 12rpx;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.detail-label {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.detail-value {
+  font-size: 28rpx;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+}
+
+.detail-value.rise {
+  color: var(--success);
+}
+
+.detail-value.fall {
+  color: var(--danger);
+}

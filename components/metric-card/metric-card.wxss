@@ -1,0 +1,51 @@
+/* components/metric-card/metric-card.wxss */
+
+.metric-card {
+  background-color: var(--bg-card);
+  border-radius: 12rpx;
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.metric-icon {
+  font-size: 40rpx;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.metric-value {
+  font-size: 36rpx;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.metric-label {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.metric-value.success,
+.metric-value.rise {
+  color: var(--success);
+}
+
+.metric-value.danger,
+.metric-value.fall {
+  color: var(--danger);
+}
+
+.metric-value.warning {
+  color: var(--warning);
+}
+
+.metric-value.neutral {
+  color: var(--text-primary);
+}

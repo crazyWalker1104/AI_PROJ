@@ -1,0 +1,66 @@
+/* 全局样式 - 深色科技金融风 */
+page {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #111827;
+  --bg-card: #1a2332;
+  --bg-card-hover: #232f42;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --border: rgba(99, 102, 241, 0.2);
+
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', sans-serif;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+/* 工具类 */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-8 { gap: 8rpx; }
+.gap-12 { gap: 12rpx; }
+.gap-16 { gap: 16rpx; }
+.p-16 { padding: 16rpx; }
+.mt-8 { margin-top: 8rpx; }
+.mt-12 { margin-top: 12rpx; }
+.mt-16 { margin-top: 16rpx; }
+.mb-12 { margin-bottom: 12rpx; }
+.mb-16 { margin-bottom: 16rpx; }
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.bg-card { background-color: var(--bg-card); }
+.rounded-12 { border-radius: 12rpx; }
+.rounded-8 { border-radius: 8rpx; }
+
+/* 动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.fade-in {
+  animation: fadeIn 300ms ease-out;
+}
+
+.pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}

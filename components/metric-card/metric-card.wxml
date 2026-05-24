@@ -1,0 +1,7 @@
+<view class="metric-card">
+  <text class="metric-icon">{{icon}}</text>
+  <view class="metric-content">
+    <text class="metric-value {{colorClass}}">{{value}}</text>
+    <text class="metric-label">{{label}}</text>
+  </view>
+</view>
