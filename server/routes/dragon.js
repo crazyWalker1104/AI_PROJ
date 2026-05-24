@@ -21,13 +21,17 @@ function errorRes(res, message, status = 500) {
 
 router.get('/list', async (req, res) => {
   try {
-    let data = cache.get('dragon:list');
-    if (data) {
-      logger.info('龙虎榜: 缓存命中');
-      return jsonRes(res, data, 'cache', true);
+    const refresh = req.query.refresh === 'true';
+    
+    if (!refresh) {
+      let data = cache.get('dragon:list');
+      if (data) {
+        logger.info('龙虎榜: 缓存命中');
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await tushare.getDragonList();
+    const data = await tushare.getDragonList();
     cache.set('dragon:list', data, { memoryTTL: 1800000, fileTTL: 14400000 });
     logger.info('龙虎榜获取成功');
     jsonRes(res, data, 'api');
@@ -39,12 +43,16 @@ router.get('/list', async (req, res) => {
 
 router.get('/dealers', async (req, res) => {
   try {
-    let data = cache.get('dragon:dealers');
-    if (data) {
-      return jsonRes(res, data, 'cache', true);
+    const refresh = req.query.refresh === 'true';
+    
+    if (!refresh) {
+      let data = cache.get('dragon:dealers');
+      if (data) {
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await tushare.getDealerRanking();
+    const data = await tushare.getDealerRanking();
     cache.set('dragon:dealers', data);
     jsonRes(res, data, 'api');
   } catch (err) {

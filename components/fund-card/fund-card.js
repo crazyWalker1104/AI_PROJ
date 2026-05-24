@@ -7,11 +7,16 @@ Component({
     }
   },
 
+  data: {
+    expanded: false
+  },
+
   methods: {
     onTap() {
       const fund = this.properties.fund;
       if (fund && fund.code) {
-        this.triggerEvent('tap', { fund });
+        this.setData({ expanded: !this.data.expanded });
+        this.triggerEvent('tap', { fund, expanded: this.data.expanded });
       }
     },
     onDelete() {

@@ -1,4 +1,4 @@
-<view class="fund-card" bindtap="onTap" bindlongpress="onDelete">
+<view class="fund-card {{expanded ? 'expanded' : ''}}" bindtap="onTap">
   <view class="card-main">
     <view class="fund-info">
       <text class="fund-code">{{fund.code}}</text>
@@ -12,20 +12,42 @@
   
   <!-- 趋势图表 -->
   <view class="trend-chart">
-    <view class="trend-dots">
+    <view class="trend-line">
       <block wx:for="{{fund.trend}}" wx:key="index">
         <view 
-          class="trend-dot {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}" 
+          class="trend-bar {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}" 
           style="height: {{item * 10}}px;"
         ></view>
       </block>
     </view>
+    <view class="trend-area {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}"></view>
   </view>
   
   <view class="card-footer">
     <view class="change-badge {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}">
       <text class="change-arrow">{{fund.estimateChange >= 0 ? '↑' : '↓'}}</text>
       <text class="change-value">{{fund.estimateChange >= 0 ? '+' : ''}}{{fund.estimateChange}}%</text>
+    </view>
+    <text class="expand-hint">{{expanded ? '收起 ▲' : '展开 ▼'}}</text>
+  </view>
+
+  <!-- 展开详情 -->
+  <view class="detail-section" wx:if="{{expanded}}">
+    <view class="detail-row">
+      <text class="detail-label">估算净值</text>
+      <text class="detail-value">{{fund.estimateNav}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">涨跌幅</text>
+      <text class="detail-value {{fund.estimateChange >= 0 ? 'rise' : 'fall'}}">{{fund.estimateChange >= 0 ? '+' : ''}}{{fund.estimateChange}}%</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">净值日期</text>
+      <text class="detail-value">{{fund.navDate}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">基金代码</text>
+      <text class="detail-value">{{fund.code}}</text>
     </view>
   </view>
 </view>

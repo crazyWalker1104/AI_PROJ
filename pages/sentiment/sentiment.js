@@ -23,7 +23,7 @@ Page({
   },
 
   onPullDownRefresh() {
-    Promise.all([this.loadSentimentData(), this.loadETFData()]).then(() => {
+    Promise.all([this.loadSentimentData(true), this.loadETFData(true)]).then(() => {
       wx.stopPullDownRefresh();
       wx.showToast({ title: '刷新成功', icon: 'success' });
     }).catch(() => {
@@ -31,10 +31,10 @@ Page({
     });
   },
 
-  async loadSentimentData() {
+  async loadSentimentData(refresh = false) {
     try {
-      const indexRes = await api.getSentimentIndex();
-      const metricsRes = await api.getMarketMetrics();
+      const indexRes = await api.getSentimentIndex(refresh);
+      const metricsRes = await api.getMarketMetrics(refresh);
       this.setData({
         sentimentIndex: indexRes.data.fearGreedIndex,
         sentiment: indexRes.data.sentiment,
@@ -45,9 +45,9 @@ Page({
     }
   },
 
-  async loadETFData() {
+  async loadETFData(refresh = false) {
     try {
-      const res = await api.getETFFlow(this.data.etfCategory);
+      const res = await api.getETFFlow(this.data.etfCategory, refresh);
       this.setData({ etfList: res.data });
     } catch (err) {
       console.error('加载ETF数据失败:', err);

@@ -16,7 +16,7 @@ Page({
   },
 
   onPullDownRefresh() {
-    this.loadData().then(() => {
+    this.loadData(true).then(() => {
       wx.stopPullDownRefresh();
       wx.showToast({ title: '刷新成功', icon: 'success' });
     }).catch(() => {
@@ -24,10 +24,10 @@ Page({
     });
   },
 
-  async loadData() {
+  async loadData(refresh = false) {
     try {
-      const listRes = await api.getDragonList();
-      const dealerRes = await api.getDealerRanking();
+      const listRes = await api.getDragonList(refresh);
+      const dealerRes = await api.getDealerRanking(refresh);
       this.setData({
         dragonList: listRes.data,
         dealerRanking: dealerRes.data

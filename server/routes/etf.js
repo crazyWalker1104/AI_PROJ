@@ -22,15 +22,18 @@ function errorRes(res, message, status = 500) {
 router.get('/flow', async (req, res) => {
   try {
     const category = req.query.category || 'broad';
+    const refresh = req.query.refresh === 'true';
     const cacheKey = `etf:flow:${category}`;
 
-    let data = cache.get(cacheKey);
-    if (data) {
-      logger.info(`ETF流向(${category}): 缓存命中`);
-      return jsonRes(res, data, 'cache', true);
+    if (!refresh) {
+      let data = cache.get(cacheKey);
+      if (data) {
+        logger.info(`ETF流向(${category}): 缓存命中`);
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await eastMoney.getETFFlow(category);
+    const data = await eastMoney.getETFFlow(category);
     cache.set(cacheKey, data, { memoryTTL: 900000, fileTTL: 5400000 });
     logger.info(`ETF流向(${category}): API获取成功`);
     jsonRes(res, data, 'api');

@@ -26,14 +26,24 @@
       </view>
       <view class="fund-list">
         <block wx:for="{{watchList}}" wx:key="code">
-          <view class="watchlist-item">
-            <fund-card 
-              fund="{{item}}" 
-              bind:tap="onFundTap"
+          <view class="swipe-container">
+            <view 
+              class="swipe-content" 
+              style="transform: translateX({{item.translateX || 0}}rpx);"
+              bindtouchstart="onSwipeStart" 
+              bindtouchmove="onSwipeMove" 
+              bindtouchend="onSwipeEnd"
+              data-index="{{index}}"
               data-code="{{item.code}}"
-            />
-            <view class="btn-delete" bindtap="onDeleteFund" data-code="{{item.code}}">
-              <text class="btn-delete-text">删除</text>
+            >
+              <fund-card 
+                fund="{{item}}" 
+                bind:tap="onFundTap"
+                data-code="{{item.code}}"
+              />
+            </view>
+            <view class="swipe-action" bindtap="onDeleteFund" data-code="{{item.code}}">
+              <text class="swipe-action-text">删除</text>
             </view>
           </view>
         </block>

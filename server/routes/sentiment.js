@@ -21,13 +21,17 @@ function errorRes(res, message, status = 500) {
 
 router.get('/index', async (req, res) => {
   try {
-    let data = cache.get('sentiment:index');
-    if (data) {
-      logger.info('情绪指数: 缓存命中');
-      return jsonRes(res, data, 'cache', true);
+    const refresh = req.query.refresh === 'true';
+    
+    if (!refresh) {
+      let data = cache.get('sentiment:index');
+      if (data) {
+        logger.info('情绪指数: 缓存命中');
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await tushare.getSentimentIndex();
+    const data = await tushare.getSentimentIndex();
     cache.set('sentiment:index', data, { memoryTTL: 600000, fileTTL: 3600000 });
     logger.info('情绪指数获取成功');
     jsonRes(res, data, 'api');
@@ -40,8 +44,9 @@ router.get('/index', async (req, res) => {
 // 根路径：返回完整情绪数据（兼容前端调用）
 router.get('/', async (req, res) => {
   try {
-    let sentimentData = cache.get('sentiment:index');
-    let marketData = cache.get('sentiment:market');
+    const refresh = req.query.refresh === 'true';
+    let sentimentData = refresh ? null : cache.get('sentiment:index');
+    let marketData = refresh ? null : cache.get('sentiment:market');
 
     if (!sentimentData) {
       sentimentData = await tushare.getSentimentIndex();
@@ -69,12 +74,16 @@ router.get('/', async (req, res) => {
 
 router.get('/market', async (req, res) => {
   try {
-    let data = cache.get('sentiment:market');
-    if (data) {
-      return jsonRes(res, data, 'cache', true);
+    const refresh = req.query.refresh === 'true';
+    
+    if (!refresh) {
+      let data = cache.get('sentiment:market');
+      if (data) {
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await tushare.getMarketMetrics();
+    const data = await tushare.getMarketMetrics();
     cache.set('sentiment:market', data);
     jsonRes(res, data, 'api');
   } catch (err) {

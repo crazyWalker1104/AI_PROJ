@@ -29,13 +29,17 @@ function errorRes(res, message, status = 500) {
 
 router.get('/list', async (req, res) => {
   try {
-    let data = cache.get('fund:list');
-    if (data) {
-      logger.info('基金列表: 缓存命中');
-      return jsonRes(res, data, 'cache', true);
+    const refresh = req.query.refresh === 'true';
+    
+    if (!refresh) {
+      let data = cache.get('fund:list');
+      if (data) {
+        logger.info('基金列表: 缓存命中');
+        return jsonRes(res, data, 'cache', true);
+      }
     }
 
-    data = await eastMoney.getFundList(['000001', '110022', '420001', '160119', '000961']);
+    const data = await eastMoney.getFundList(['000001', '110022', '420001', '160119', '000961']);
     cache.set('fund:list', data);
     logger.info('基金列表: API获取成功');
     jsonRes(res, data, 'api');

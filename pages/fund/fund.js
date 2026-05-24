@@ -50,7 +50,7 @@ Page({
 
   onPullDownRefresh() {
     wx.showLoading({ title: '刷新中...' });
-    this.loadData().then(() => {
+    this.loadData(true).then(() => {
       wx.hideLoading();
       wx.stopPullDownRefresh();
       wx.showToast({ title: '刷新成功', icon: 'success' });
@@ -60,9 +60,9 @@ Page({
     });
   },
 
-  async loadData() {
+  async loadData(refresh = false) {
     try {
-      const res = await api.getFundList();
+      const res = await api.getFundList(refresh);
       const rankingList = this.data.rankingType === 'rise' ? 
         [...res.data].sort((a, b) => b.estimateChange - a.estimateChange) :
         [...res.data].sort((a, b) => a.estimateChange - b.estimateChange);
@@ -126,5 +126,40 @@ Page({
     this.setData({ watchList });
     this.saveWatchList(); // 持久化保存
     wx.showToast({ title: '已删除', icon: 'success' });
+  },
+
+  // 滑动删除相关
+  onSwipeStart(e) {
+    this._swipeStartX = e.touches[0].clientX;
+    this._swipeStartY = e.touches[0].clientY;
+    this._swipeIndex = e.currentTarget.dataset.index;
+  },
+
+  onSwipeMove(e) {
+    const deltaX = e.touches[0].clientX - this._swipeStartX;
+    const deltaY = e.touches[0].clientY - this._swipeStartY;
+    
+    // 如果纵向滑动大于横向，不处理
+    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+    
+    // 只处理左滑
+    if (deltaX < 0) {
+      const translateX = Math.max(deltaX * 2, -160); // 最大滑动160rpx
+      const key = `watchList[${this._swipeIndex}].translateX`;
+      this.setData({ [key]: translateX });
+    }
+  },
+
+  onSwipeEnd(e) {
+    const index = this._swipeIndex;
+    if (index === undefined) return;
+    
+    const item = this.data.watchList[index];
+    if (!item) return;
+    
+    // 滑动超过一半则展开删除按钮，否则回弹
+    const translateX = (item.translateX || 0) < -80 ? -160 : 0;
+    const key = `watchList[${index}].translateX`;
+    this.setData({ [key]: translateX });
   }
 });

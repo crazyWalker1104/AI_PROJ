@@ -139,6 +139,38 @@
   position: relative;
 }
 
+/* 滑动删除 */
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-content {
+  position: relative;
+  z-index: 2;
+  transition: transform 200ms ease;
+}
+
+.swipe-action {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger);
+  z-index: 1;
+  border-radius: 0 12rpx 12rpx 0;
+}
+
+.swipe-action-text {
+  color: white;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
 .watchlist-item .fund-card {
   margin: 0;
 }

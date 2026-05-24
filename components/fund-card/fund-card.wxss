@@ -62,32 +62,56 @@
 
 /* 趋势图表 */
 .trend-chart {
-  height: 40rpx;
+  height: 48rpx;
   display: flex;
   align-items: flex-end;
   padding: 0 8rpx;
+  position: relative;
 }
 
-.trend-dots {
+.trend-line {
   display: flex;
   align-items: flex-end;
-  gap: 6rpx;
+  gap: 4rpx;
   height: 100%;
+  flex: 1;
+  position: relative;
+  z-index: 2;
 }
 
-.trend-dot {
-  width: 8rpx;
-  border-radius: 4rpx;
+.trend-bar {
+  width: 12rpx;
+  border-radius: 6rpx;
   transition: height 300ms ease;
-  min-height: 4rpx;
+  min-height: 6rpx;
 }
 
-.trend-dot.rise {
-  background: linear-gradient(180deg, var(--success), #34d399);
+.trend-bar.rise {
+  background: linear-gradient(180deg, var(--success), rgba(16, 185, 129, 0.3));
+  box-shadow: 0 0 8rpx rgba(16, 185, 129, 0.3);
 }
 
-.trend-dot.fall {
-  background: linear-gradient(180deg, var(--danger), #f87171);
+.trend-bar.fall {
+  background: linear-gradient(180deg, var(--danger), rgba(239, 68, 68, 0.3));
+  box-shadow: 0 0 8rpx rgba(239, 68, 68, 0.3);
+}
+
+.trend-area {
+  position: absolute;
+  bottom: 0;
+  left: 8rpx;
+  right: 8rpx;
+  height: 24rpx;
+  border-radius: 12rpx 12rpx 0 0;
+  z-index: 1;
+}
+
+.trend-area.rise {
+  background: linear-gradient(180deg, transparent, rgba(16, 185, 129, 0.08));
+}
+
+.trend-area.fall {
+  background: linear-gradient(180deg, transparent, rgba(239, 68, 68, 0.08));
 }
 
 .card-footer {
@@ -129,4 +153,61 @@
 .change-badge.fall .change-arrow,
 .change-badge.fall .change-value {
   color: var(--danger);
+}
+
+/* 展开提示 */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expand-hint {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+/* 展开详情 */
+.detail-section {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--border);
+  animation: fadeInUp 300ms ease;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.detail-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.detail-value {
+  font-size: 26rpx;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.detail-value.rise {
+  color: var(--success);
+}
+
+.detail-value.fall {
+  color: var(--danger);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

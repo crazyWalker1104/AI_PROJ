@@ -26,11 +26,12 @@ function request(url, options = {}) {
 }
 
 module.exports = {
-  getFundList: () => request('/fund/list'),
+  getFundList: (refresh = false) => request('/fund/list', { data: { refresh } }),
   searchFund: (keyword) => request('/fund/search', { data: { keyword } }),
-  getSentimentIndex: () => request('/sentiment/index'),
-  getMarketMetrics: () => request('/sentiment/market'),
-  getETFFlow: (category) => request('/etf/flow', { data: { category } }),
-  getDragonList: () => request('/dragon/list'),
-  getDealerRanking: () => request('/dragon/dealers')
+  getSentimentIndex: (refresh = false) => request('/sentiment/index', { data: { refresh } }),
+  getSentiment: (refresh = false) => request('/sentiment', { data: { refresh } }),
+  getMarketMetrics: (refresh = false) => request('/sentiment/market', { data: { refresh } }),
+  getETFFlow: (category, refresh = false) => request('/etf/flow', { data: { category, refresh } }),
+  getDragonList: (refresh = false) => request('/dragon/list', { data: { refresh } }),
+  getDealerRanking: (refresh = false) => request('/dragon/dealers', { data: { refresh } })
 };

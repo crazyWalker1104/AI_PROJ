@@ -27,6 +27,15 @@
   box-sizing: border-box;
 }
 
+.gauge-track {
+  position: absolute;
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  border: 24rpx solid rgba(99, 102, 241, 0.08);
+  box-sizing: border-box;
+}
+
 .gauge-progress {
   position: absolute;
   width: 260rpx;
@@ -34,6 +43,7 @@
   border-radius: 50%;
   border: 24rpx solid transparent;
   transition: transform 0.5s ease-out;
+  filter: drop-shadow(0 0 8rpx currentColor);
 }
 
 .gauge-progress.fear {
@@ -59,6 +69,36 @@
 .gauge-progress.extreme-greed {
   border-top-color: #10b981;
   border-right-color: #10b981;
+}
+
+/* 发光效果 */
+.gauge-glow {
+  position: absolute;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  opacity: 0.15;
+  transition: all 0.5s ease-out;
+}
+
+.gauge-glow.fear {
+  box-shadow: 0 0 40rpx 20rpx #ef4444;
+}
+
+.gauge-glow.neutral-fear {
+  box-shadow: 0 0 40rpx 20rpx #f59e0b;
+}
+
+.gauge-glow.neutral {
+  box-shadow: 0 0 40rpx 20rpx #eab308;
+}
+
+.gauge-glow.greed {
+  box-shadow: 0 0 40rpx 20rpx #22c55e;
+}
+
+.gauge-glow.extreme-greed {
+  box-shadow: 0 0 40rpx 20rpx #10b981;
 }
 
 .gauge-center {
